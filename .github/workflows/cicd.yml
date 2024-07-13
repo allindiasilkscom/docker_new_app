@@ -25,7 +25,7 @@ jobs:
       - name: Pull image from Docker Hub
         run: docker pull nithyanandnadar/new
       - name: Stop and Remove Old Container
-        run: docker stop reactcontainer || true
-          docker rm reactcontainer || true
+        run: docker stop reactcontainer_New || true
+          docker rm reactcontainer_New || true
       - name: Run Docker Container
         run: docker run -d -p 3000:80 --name reactcontainer_New nithyanandnadar/new
