@@ -28,4 +28,4 @@ jobs:
         run: docker stop reactcontainer_New || true
           docker rm reactcontainer_New || true
       - name: Run Docker Container
-        run: docker run -d -p 3000:80 --name reactcontainer_New nithyanandnadar/new
+        run: docker run -d -p 3000:80 --name reactcontainer_New_updated nithyanandnadar/new
