@@ -1,0 +1,31 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v3
+      - name: Login to Docker Hub
+        run: docker login -u nithyanandnadar -p Mumbai@2050
+      - name: Build Docker Image
+        run: |
+          docker build -t nithyanandnadar/new .
+          docker push nithyanandnadar/new
+
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - name: Pull image from Docker Hub
+        run: docker pull nithyanandnadar/new
+      - name: Stop and Remove Old Container
+        run: docker stop reactcontainer || true
+          docker rm reactcontainer || true
+      - name: Run Docker Container
+        run: docker run -d -p 3000:80 --name reactcontainer nithyanandnadar/new
